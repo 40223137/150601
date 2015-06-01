@@ -19,8 +19,8 @@ class MAN(object):
         outstring = '''
 這是 2015CDA 協同專案下的 cdag7模組下的 MAN 類別.<br /><br />
 <!-- 這裡採用相對連結, 而非網址的絕對連結 (這一段為 html 註解) -->
-<a href="http://cdag7lego-40223139.rhcloud.com/man2/assembly">執行  body</a><br /><br />
-<a href="assembly">執行  hand</a><br /><br />
+<a href="http://150602-week10.rhcloud.com/man2/assembly">執行 hand</a><br /><br />
+
 請確定下列零件於 V:/home/lego/man 目錄中, 且開啟空白 Creo 組立檔案.<br />
 <a href="/static/lego_man.7z">lego_man.7z</a>(滑鼠右鍵存成 .7z 檔案)<br />
 '''
@@ -243,18 +243,18 @@ var assembly = model;
 // 開始執行組立, 全部採函式呼叫組立
 /////////////////////////////////////////////////////////////////
 
-// Body 與空組立檔案採三個平面約束組立
-// 空組立面為 ASM_TOP, ASM_FRONT, ASM_RIGHT
-// Body 組立面為 TOP, FRONT, RIGHT
-// 若 featID=0 表示為空組立檔案, 而且函式會傳回第一個組立件的 featID
-var featID = three_plane_assembly(session, assembly, transf, 0, 0, "LEGO_BODY.prt", "ASM_TOP", "ASM_FRONT", "ASM_RIGHT", "TOP", "FRONT", "RIGHT"); 
 // 利用函式呼叫組立右手 ARM, 組立增量次序為 1
-axis_plane_assembly(session, assembly, transf, featID, 0, 
+axis_plane_assembly(session, assembly, transf, 40, 0, 
                               "LEGO_ARM_RT.prt", "A_13", "DTM1", "A_4", "DTM1");
 // 利用函式呼叫組立左手 ARM, 組立增量次序為 2
-axis_plane_assembly(session, assembly, transf, featID, 0, 
+axis_plane_assembly(session, assembly, transf, 40, 0, 
                               "LEGO_ARM_LT.prt", "A_9", "DTM2", "A_4", "DTM1");
-
+// 利用函式呼叫組立右手 HAND, 組立增量次序為 3
+axis_plane_assembly(session, assembly, transf, 44, 1, 
+                              "LEGO_HAND.prt", "A_2", "DTM2", "A_1", "DTM3");
+// 利用函式呼叫組立左手 HAND, 組立增量次序為 5
+axis_plane_assembly(session, assembly, transf, 42, 2, 
+                              "LEGO_HAND.prt", "A_2", "DTM2", "A_1", "DTM3");
 // regenerate 並且 repaint 組立檔案
 assembly.Regenerate (void null);
 session.GetModelWindow (assembly).Repaint();    
